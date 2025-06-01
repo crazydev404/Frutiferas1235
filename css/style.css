@@ -1,0 +1,464 @@
+:root {
+    --primary: #27ae60;
+    --secondary: #f39c12;
+    --dark: #2c3e50;
+    --light: #ecf0f1;
+    --glass: rgba(255, 255, 255, 0.2);
+}
+
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1%;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.9;
+}
+
+
+
+
+/* Reset e estilos gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?q=80&w=1474&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover; /* Faz com que a imagem cubra toda a tela */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita repetição */
+    background-attachment: fixed; /* Fixa o fundo ao rolar */
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 80px;
+}
+
+/* Cabeçalho fixo */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2a6b1d;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.logo {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* Menu de navegação */
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 30px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Conteúdo principal */
+main {
+    padding: 30px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.intro {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+h1 {
+    color: #2a6b1d;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+h2 {
+    color: #2a6b1d;
+    margin: 30px 0 15px;
+    font-size: 1.5rem;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+/* Grade de imagens */
+.frutas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.fruta-card {
+    position: relative; /* para o efeito do ::after */
+    background-color: rgba(255, 255, 255, 0.8); /* branco com transparência */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+/* Transparência degradê na parte de baixo */
+.fruta-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to top, rgba(255,255,255,0.7), rgba(255,255,255,0));
+    pointer-events: none;
+    border-radius: 0 0 8px 8px;
+}
+
+.fruta-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.9); /* fica um pouco mais opaco no hover */
+}
+
+.fruta-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.fruta-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.fruta-info h3 {
+    color: #2a6b1d;
+    margin-bottom: 5px;
+}
+
+
+/* Rodapé */
+footer {
+    background-color: #2a6b1d;
+    color: #fff;
+    padding: 40px 5%;
+    margin-top: 50px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.footer-section h3 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.footer-section p, .footer-section a {
+    color: #d4e6a5;
+    margin-bottom: 10px;
+    display: block;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos específicos para jogos.html */
+.fruta-destaque {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 40px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.fruta-imagem {
+    flex: 1;
+    min-width: 300px;
+}
+
+.fruta-imagem img {
+    width: 100%;
+    height: 100%; /* ou 300px, ou mais se quiser maior */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.fruta-conteudo {
+    flex: 2;
+    min-width: 300px;
+}
+
+/* Seção de jogos */
+.jogos {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.jogos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.jogo-card {
+    background-color: #f1f8e9;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.jogo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.jogo-card h3 {
+    color: #2a6b1d;
+    margin-bottom: 10px;
+}
+
+.jogo-card p {
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.btn-jogo {
+    display: inline-block;
+    background-color: #4a8c3a;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-jogo:hover {
+    background-color: #2a6b1d;
+}
+
+/* Seção sobre */
+.sobre {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+}
+
+/* Estilos do Quiz */
+.quiz-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.quiz-modal {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.quiz-modal h3 {
+    color: #2a6b1d;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#quiz-pergunta {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+#quiz-opcoes {
+    margin: 1.5rem 0;
+}
+
+#quiz-opcoes button {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.8rem 0;
+    background-color: #f1f8e9;
+    border: 2px solid #2a6b1d;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+#quiz-opcoes button:hover {
+    background-color: #d4e6a5;
+}
+
+#quiz-opcoes button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+#quiz-resultado {
+    margin: 1.5rem 0;
+    font-size: 1.1rem;
+    min-height: 3rem;
+}
+
+#quiz-proximo, #quiz-fechar {
+    background-color: #2a6b1d;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 0.5rem;
+    transition: background-color 0.3s;
+}
+
+#quiz-proximo:hover, #quiz-fechar:hover {
+    background-color: #1e4d14;
+}
+
+#quiz-fechar {
+    background-color: #a52a2a;
+}
+
+#quiz-fechar:hover {
+    background-color: #8b0000;
+}
+
+.quiz-botoes {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 15px;
+    }
+    
+    .logo {
+        margin-bottom: 15px;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    nav ul li {
+        margin: 0 10px 5px;
+    }
+    
+    body {
+        padding-top: 120px;
+    }
+    
+    .fruta-destaque {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+    }
+    
+    .frutas-grid, .jogos-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.botao-musica {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.3); /* branco transparente */
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  backdrop-filter: blur(6px); /* efeito "vidro fosco" */
+  -webkit-backdrop-filter: blur(6px);
+  padding: 12px;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.botao-musica:hover {
+  background: rgba(255, 255, 255, 0.5); /* um pouco mais forte no hover */
+  transform: scale(1.05);
+}
+
+.botao-musica img {
+  width: 24px;
+  height: 24px;
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frutíferas - Jogos</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="imagens/leaf-icon-png-7066.png" type="image/png">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-leaf"></i>
+            <span>Frutíferas</span>
+        </a>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="jogos.html">Jogos</a></li>
+                <li><a href="jogos.html#sobre">Sobre</a></li>
+                <li><a href="index.html#footer">Contato</a></li>
+                <li><a href="#">Mais</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="fruta-destaque">
+            <div class="fruta-imagem">
+                <img id="fruta-img" src="https://files.agro20.com.br/uploads/2019/11/Umbu-caj%C3%A1-1.jpg" alt="Fruta selecionada">
+            </div>
+            
+            <div class="fruta-conteudo">
+                <h1 id="fruta-nome">Cajá</h1>
+                <p id="fruta-descricao">O cajá é uma fruta tropical nativa da América, muito apreciada por seu sabor ácido e refrescante.</p>
+                
+                <h2>Benefícios</h2>
+                <p id="fruta-beneficios">Rico em vitamina C, antioxidantes e minerais, o cajá ajuda no fortalecimento do sistema imunológico.</p>
+                
+                <h2>Curiosidades</h2>
+                <p id="fruta-curiosidades">A cajazeira floresce entre agosto e outubro, e seus frutos amadurecem de outubro a janeiro.</p>
+            </div>
+        </section>
+        
+        <section class="jogos">
+            <h2>Jogos Educativos</h2>
+            <p>Aprenda mais sobre esta fruta através de nossos jogos interativos:</p>
+            
+            <div class="jogos-grid">
+                <div class="jogo-card">
+                    <h3>Quiz da Fruta</h3>
+                    <p>Teste seus conhecimentos sobre esta fruta em um quiz divertido.</p>
+                    <a href="#" class="btn-jogo" id="quiz-btn">Jogar</a>
+                </div>
+                
+                <div class="jogo-card">
+                    <h3>Memória das Frutas</h3>
+                    <p>Encontre os pares de cartas com imagens desta fruta.</p>
+                    <a href="#" class="btn-jogo" id="memoria-btn">Jogar</a>
+                </div>
+                
+                <div class="jogo-card">
+                    <h3>Quebra-cabeça</h3>
+                    <p>Monte a imagem desta fruta em diferentes níveis de dificuldade.</p>
+                    <a href="#" class="btn-jogo" id="quebra-cabeca-btn">Jogar</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="sobre">
+            <h2>Sobre o Projeto</h2>
+            <p>Este projeto tem como objetivo educar sobre a importância das árvores frutíferas para o meio ambiente e a saúde humana.</p>
+        </section>
+    </main>
+
+ <button id="controle-musica" class="botao-musica" title="Trilha sonora">
+  <img id="icone-musica" src="assets/icons/volume.png" alt="Som ligado">
+</button>
+
+<audio id="trilha-sonora" src="assets/audios/ambience-wind-blowing-through-trees-01-186986.mp3" loop></audio>
+<script>
+  const trilha = document.getElementById('trilha-sonora');
+  const botaoMusica = document.getElementById('controle-musica');
+  const iconeMusica = document.getElementById('icone-musica');
+
+  let musicaLigada = false;
+
+  botaoMusica.addEventListener('click', () => {
+    if (musicaLigada) {
+      trilha.pause();
+      iconeMusica.src = 'assets/icons/mute.png';
+      iconeMusica.alt = 'Som desligado';
+    } else {
+      trilha.volume = 0.4;
+      trilha.play();
+      iconeMusica.src = 'assets/icons/volume.png';
+      iconeMusica.alt = 'Som ligado';
+    }
+    musicaLigada = !musicaLigada;
+  });
+
+  // Parar música automaticamente ao iniciar o quiz
+  const originalIniciarQuiz = jogos.iniciarQuiz;
+  jogos.iniciarQuiz = function (fruta) {
+    if (!trilha.paused) {
+      trilha.pause();
+      iconeMusica.src = 'assets/icons/mute.png';
+      iconeMusica.alt = 'Som desligado';
+      musicaLigada = false;
+    }
+    originalIniciarQuiz.call(jogos, fruta);
+  };
+</script>
+    <script src="js/script.js"></script>
+</body>
+</html>
