@@ -395,3 +395,160 @@ function atualizarConteudo() {
 
 window.onload = atualizarConteudo;
 
+// Adicionar ao objeto jogos (em script.js)
+jogos.iniciarMemoria = function(fruta) {
+    // Verifica se já existe um jogo aberto
+    if(document.querySelector('.memory-container')) {
+        return;
+    }
+
+    const frutaAtual = frutas[fruta] || frutas['caja'];
+    
+    const memoryContainer = document.createElement('div');
+    memoryContainer.className = 'memory-container';
+    memoryContainer.innerHTML = `
+        <div class="memory-modal">
+            <h3>Jogo da Memória: ${frutaAtual.nome}</h3>
+            <div class="game-info">
+                <p>Jogadas: <span id="moves">0</span></p>
+                <p>Pares encontrados: <span id="pairs">0</span></p>
+                <button id="memory-fechar">Fechar</button>
+            </div>
+            <div class="memory-game" id="memory-game"></div>
+        </div>
+    `;
+    
+    document.body.appendChild(memoryContainer);
+    
+    // Adiciona evento para fechar o jogo
+    document.getElementById('memory-fechar').addEventListener('click', function() {
+        document.body.removeChild(memoryContainer);
+    });
+    
+    // Inicia o jogo
+    this.iniciarJogoMemoria(frutaAtual);
+};
+
+jogos.iniciarJogoMemoria = function(fruta) {
+    const memoryGame = document.getElementById('memory-game');
+    const movesDisplay = document.getElementById('moves');
+    const pairsDisplay = document.getElementById('pairs');
+    
+    // Usa emojis de frutas ou pode ser adaptado para usar imagens
+    const frutasEmojis = ['🍎', '🍌', '🍒', '🍓', '🍊', '🍋', '🍐', '🍉'];
+    let cards = [];
+    let hasFlippedCard = false;
+    let lockBoard = false;
+    let firstCard, secondCard;
+    let moves = 0;
+    let pairsFound = 0;
+    const totalPairs = frutasEmojis.length;
+    
+    // Duplica as frutas para formar pares e embaralha
+    function shuffleCards() {
+        const allCards = [...frutasEmojis, ...frutasEmojis];
+        return allCards.sort(() => Math.random() - 0.5);
+    }
+    
+    // Cria o tabuleiro do jogo
+    function createBoard() {
+        memoryGame.innerHTML = '';
+        cards = shuffleCards();
+        moves = 0;
+        pairsFound = 0;
+        updateDisplay();
+        
+        cards.forEach((fruit, index) => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.dataset.fruit = fruit;
+            card.dataset.index = index;
+            
+            card.innerHTML = `
+                <div class="card-face card-back">?</div>
+                <div class="card-face card-front">${fruit}</div>
+            `;
+            
+            card.addEventListener('click', flipCard);
+            memoryGame.appendChild(card);
+        });
+    }
+    
+    // Vira a carta
+    function flipCard() {
+        if (lockBoard) return;
+        if (this === firstCard) return;
+        
+        this.classList.add('flipped');
+        
+        if (!hasFlippedCard) {
+            // Primeira carta virada
+            hasFlippedCard = true;
+            firstCard = this;
+            return;
+        }
+        
+        // Segunda carta virada
+        secondCard = this;
+        moves++;
+        updateDisplay();
+        checkForMatch();
+    }
+    
+    // Verifica se as cartas são iguais
+    function checkForMatch() {
+        const isMatch = firstCard.dataset.fruit === secondCard.dataset.fruit;
+        
+        if (isMatch) {
+            disableCards();
+            pairsFound++;
+            updateDisplay();
+            somAcerto.play();
+            
+            if (pairsFound === totalPairs) {
+                setTimeout(() => {
+                    somVitoria.play();
+                    alert(`Parabéns! Você completou o jogo em ${moves} jogadas!`);
+                }, 500);
+            }
+        } else {
+            unflipCards();
+            somErro.play();
+        }
+    }
+    
+    // Desativa as cartas quando formam um par
+    function disableCards() {
+        firstCard.removeEventListener('click', flipCard);
+        secondCard.removeEventListener('click', flipCard);
+        
+        resetBoard();
+    }
+    
+    // Desvira as cartas se não forem iguais
+    function unflipCards() {
+        lockBoard = true;
+        
+        setTimeout(() => {
+            firstCard.classList.remove('flipped');
+            secondCard.classList.remove('flipped');
+            
+            resetBoard();
+        }, 1000);
+    }
+    
+    // Reseta o tabuleiro após cada jogada
+    function resetBoard() {
+        [hasFlippedCard, lockBoard] = [false, false];
+        [firstCard, secondCard] = [null, null];
+    }
+    
+    // Atualiza o display de jogadas e pares
+    function updateDisplay() {
+        movesDisplay.textContent = moves;
+        pairsDisplay.textContent = `${pairsFound}/${totalPairs}`;
+    }
+    
+    // Inicia o jogo
+    createBoard();
+};
